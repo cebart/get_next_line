@@ -19,7 +19,8 @@ char        **ft_2tabnew(int nbl, int nbc)
     tab = (char **)malloc(sizeof(char *) * (nbl + 1));
     while(i < nbl)
     {
-        tab[i] = (ft_strnew(nbc + 1));
+		tab[i] = (ft_strnew(nbc));
+		tab[i][0] = '\0';
         i++;
     }
     tab[i] = '\0';
@@ -30,10 +31,9 @@ char        **ft_2tabnew(int nbl, int nbc)
 int     	main(int argc, char **argv)
 {
 	int     fd;
-	int		test;
 	char	**line;
-	
-	line = ft_2tabnew(25, 100);
+
+	line = ft_2tabnew(7, 50);
 	if (argc == 1)
 	{
 		write(2, "fillit: missing file operand", 18);
@@ -45,8 +45,16 @@ int     	main(int argc, char **argv)
 			 return (1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	test = get_next_line(fd, line);
-	ft_putnbr(test);
+	while (get_next_line(fd, line))
+	int		i = 0;
+	int		j = 0;
+	while (line[i][j])
+	{
+		ft_putstr(line[i]);
+		ft_putchar('\n');
+		i++;
+		j++;
+	}
 	close(fd);
 	return (0);
 }

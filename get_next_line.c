@@ -1,30 +1,34 @@
 #include "get_next_line.h"
 
-static int count_char_line(const int fd, char *buf)
-{
-    int ret;
-    int len_line;
-
-    len_line = -2;
-    ret = 1;
-    while (ret != 0 && buf[0] != '\n')
-    {
-        ret = read (fd, buf, 1);
-        len_line++;
-    }
-    return (len_line);
-}
-
 int get_next_line(const int fd, char **line)
 {
-    char    *buf;
-    int     nb_char;
-    char    *line_temp;
+    char        *buf;
+    int         ret;
+    int         i;
+    static int  cptread = 0;
+    int         cpt;
 
-    line[0][0] = '\0'; /* a suppr */
+    cpt = 0;
+    i = 0;
+    ret = 1;
     buf = ft_strnew(BUFF_SIZE);
-    nb_char = count_char_line(fd, buf);
-    line_temp = ft_strnew(nb_char);
-    while 
-    return (nb_char);
+    buf[0] = '\0';
+    while (line[i][0])
+        i++;
+    while (ret != -1)
+    {
+        ret = read (fd, buf, 1);
+        cpt++;
+        if (cpt >= cptread)
+        {
+            if (buf[0] == '\n')
+                ret = -1;
+            else
+                line[i] = ft_strcat(line[i], buf);
+            if (ret == 0)
+                return (0);
+            cptread++;
+        }
+    }
+    return (1);
 }
