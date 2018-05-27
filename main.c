@@ -32,8 +32,11 @@ int     	main(int argc, char **argv)
 {
 	int     fd;
 	char	**line;
+	int		i = 0;
+	int		j = 0;
+	int		f = 1;
 
-	line = ft_2tabnew(7, 50);
+	line = ft_2tabnew(20, 50);
 	if (argc == 1)
 	{
 		write(2, "fillit: missing file operand", 18);
@@ -45,10 +48,12 @@ int     	main(int argc, char **argv)
 			 return (1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	while (get_next_line(fd, line))
-	int		i = 0;
-	int		j = 0;
-	while (line[i][j])
+	while (f < 7)
+	{
+		get_next_line(fd, line);
+		f++;
+	}
+	while (j < 6)
 	{
 		ft_putstr(line[i]);
 		ft_putchar('\n');
