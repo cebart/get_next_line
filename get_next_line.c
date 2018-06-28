@@ -1,12 +1,26 @@
 #include "get_next_line.h"
 
+static void write_too_much_read (char *tmr, char **line, int i)
+{
+    int j;
+
+    j = 0;
+    while (tmr[j])
+    {
+        if (tmr[j] == '\n')
+            i++;
+        line[i] = line[i] + tmr[j];
+        j++;
+    }
+}
+
 static char *fill_too_much_read (int j, char *buff)
 {
     int     i;
     char    *ret;
 
     i = 0;
-    *ret = ft_strnew(BUFF_SIZE);
+    ret = ft_strnew(BUFF_SIZE);
     while (buff[j])
     {
         ret[i] = buff[j];
@@ -34,13 +48,13 @@ int get_next_line(const int fd, char **line)
     sb.too_much_read[0] = '\0';
     while (line[i][0])
         i++;
-    /* strcat de too_much_read sur line[i] /!\ '\n' dans too_much_read */
+    write_too_much_read (sb.too_much_read, line, i);
     while (ret != -1)
     {
         ret = read (fd, buf, BUFF_SIZE);
         while (buf[j] != '\n')
         {
-            line[i] = ft_strcat(line[i], buf[j]);
+            line[i] = line[i] + buf[j];
             j++;
         }
         sb.too_much_read = fill_too_much_read(j, buf);
